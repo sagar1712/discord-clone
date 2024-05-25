@@ -10,10 +10,12 @@
     "lint:fix": "next lint --fix",
     "lint:strict": "next lint '*/**/*.{js,jsx,ts,tsx}'",
     "prettier": "prettier --write */**/*.{js,jsx,json,ts,tsx,scss,css,md}",
-    "prepare": "husky",
+    "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
+    "check-lint": "next lint",
     "format": "prettier --write .",
-    "test-all": "bun run check-format && bun run build"
+    "test-all": "npm run check-format && npm run check-lint && npm run check-types && npm run build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",
