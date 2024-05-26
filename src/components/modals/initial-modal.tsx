@@ -21,6 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
+import { FileUpload } from '../file-uploads';
 import { Button } from '../ui/button';
 
 const formSchema = z.object({
@@ -67,14 +68,28 @@ const InitialModal = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="flex items-center justify-center text-center">
-              TODO: Image Upload
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <FileUpload
+                        endpoint="serverImage"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:textt-secondary/70 text-xs font-bold uppercase text-zinc-500">
+                  <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
                     Server Name
                   </FormLabel>
                   <FormControl>
