@@ -67,12 +67,12 @@ const CreateServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="overflow-hidden bg-white p-0 text-black">
+      <DialogContent className="overflow-hidden p-0 text-black dark:bg-[#313338] dark:text-white">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">
             Customize your server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className="text-center text-zinc-500 dark:text-white">
             Give your server a personality with a name and an image. You can
             always change it later
           </DialogDescription>
@@ -100,14 +100,14 @@ const CreateServerModal = () => {
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+                <FormItem className="m-6">
+                  <FormLabel className="text-sm font-bold uppercase text-zinc-500 dark:text-white">
                     Server Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-[#1E1F22] dark:text-white"
                       placeholder="Enter server name"
                       {...field}
                     />
@@ -117,7 +117,7 @@ const CreateServerModal = () => {
               )}
             />
             <div>
-              <DialogFooter className="bg-gray-100 px-6 py-4">
+              <DialogFooter className="bg-gray-100 px-6 py-4 dark:bg-[#2B2D31]">
                 <Button variant="primary" disabled={isLoading}>
                   Create
                 </Button>

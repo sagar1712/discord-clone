@@ -4,6 +4,7 @@ import { UploadDropzone } from '@/lib/upload-thing';
 import '@uploadthing/react/styles.css';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import { Skeleton } from './ui/skeleton';
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
@@ -16,6 +17,7 @@ export const FileUpload = ({ endpoint, onChange, value }: FileUploadProps) => {
   if (value && fileType !== 'pdf') {
     return (
       <div className="relative h-20 w-20">
+        <Skeleton className="relative h-20 w-20 rounded-full" />
         <Image fill src={value} alt="Upload" className="rounded-full" />
         <button
           onClick={() => onChange('')}
@@ -30,6 +32,11 @@ export const FileUpload = ({ endpoint, onChange, value }: FileUploadProps) => {
   return (
     <UploadDropzone
       endpoint={endpoint}
+      appearance={{
+        button: 'rounded-r-none',
+        container: 'dark:bg-[#2B2D31]',
+        allowedContent: 'h-8 items-center justify-center px-2 dark:text-white',
+      }}
       onClientUploadComplete={(res) => {
         onChange(res?.[0].url);
       }}
