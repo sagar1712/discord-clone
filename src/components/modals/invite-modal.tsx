@@ -51,24 +51,28 @@ const InviteModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="overflow-hidden bg-white p-0 text-black">
+      <DialogContent className="overflow-hidden bg-white p-0 dark:bg-[#313338] dark:text-white">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">
             Invite Friends
           </DialogTitle>
         </DialogHeader>
         <div className="p-6">
-          <Label className="text-xs font-bold uppercase  text-zinc-500 dark:text-secondary/70">
+          <Label className="text-xs font-bold uppercase dark:text-white ">
             Server invite link
           </Label>
           <div className="mt-2 flex items-center gap-x-2">
             <Input
               disabled={isLoading}
-              className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-[#1E1F22] dark:text-zinc-300 "
               value={inviteUrl}
             />
             <Button disabled={isLoading} onClick={onCopy} size="icon">
-              {copied ? <Check /> : <Copy className="h-4 w-4" />}
+              {copied ? (
+                <Check className="text-green-400" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
             </Button>
           </div>
           <Button
@@ -76,7 +80,7 @@ const InviteModal = () => {
             disabled={isLoading}
             variant="link"
             size="sm"
-            className="mt-4 text-xs text-zinc-500"
+            className="mt-2 text-xs text-zinc-500 dark:text-zinc-400"
           >
             Generate a new link
             <RefreshCw className="ml-2 h-4 w-4" />
