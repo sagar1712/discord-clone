@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import {
   Tooltip,
@@ -14,6 +14,7 @@ interface ActionTooltipProps {
   align?: 'start' | 'center' | 'end';
 }
 export const ActionTooltip = ({
+  label,
   children,
   side,
   align,
@@ -23,7 +24,9 @@ export const ActionTooltip = ({
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent side={side} align={align}>
-          <p className="text-sm font-semibold capitalize">Add to library</p>
+          <p className="text-sm font-semibold capitalize">
+            {label.toLowerCase()}
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
