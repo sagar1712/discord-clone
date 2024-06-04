@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -14,12 +15,13 @@ import { useParams, useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { Separator } from '../ui/separator';
 
 const LeaveServerModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
   const params = useParams();
+
+  const { server } = data;
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,26 +49,21 @@ const LeaveServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="gap-y-2 overflow-hidden text-black dark:bg-[#313338] dark:text-zinc-300">
-        <DialogHeader className="">
-          <DialogTitle className="text-left text-3xl font-bold">
-            Leave Server
+      <DialogContent className="gap-y-2  overflow-hidden bg-white  p-0 text-black text-primary dark:bg-[#313338] dark:text-zinc-300">
+        <DialogHeader className="px-6 pt-8">
+          <DialogTitle className="text-start text-2xl font-bold text-muted-foreground dark:text-zinc-300">
+            Leave &apos;{server?.name}&apos;
           </DialogTitle>
-          <DialogDescription className="text-left text-lg text-zinc-500 dark:text-zinc-500">
+          <DialogDescription className="text-start text-lg text-zinc-300 dark:text-zinc-500">
             Are you sure you want to leave server? You would not be able to
-            rejoin unless invited.
+            rejoin unless invited again.
           </DialogDescription>
         </DialogHeader>
-        <Separator />
-        <div className="mr-2 flex flex-row justify-end gap-x-2">
-          <Button variant="outline" className="w-24 p-5" onClick={handleClose}>
+        <DialogFooter className="flex flex-row justify-start gap-x-2 p-3 dark:bg-[#23262c]">
+          <Button variant="outline" className="w-24" onClick={handleClose}>
             Cancel
           </Button>
-          <Button
-            variant="destructive"
-            className="w-24 p-5"
-            onClick={handleLeave}
-          >
+          <Button variant="destructive" className="w-24" onClick={handleLeave}>
             {' '}
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -74,7 +71,7 @@ const LeaveServerModal = () => {
               'Leave'
             )}
           </Button>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
