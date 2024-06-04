@@ -29,7 +29,7 @@ import { Button } from '../ui/button';
 
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: 'Server image is required',
+    message: 'Server name is required',
   }),
   imageUrl: z.string().min(1, {
     message: 'server image is required.',
@@ -69,13 +69,8 @@ const EditServerModal = () => {
     }
   };
 
-  const handleClose = () => {
-    form.reset();
-    onClose();
-  };
-
   return (
-    <Dialog open={isModalOpen} onOpenChange={handleClose}>
+    <Dialog open={isModalOpen} onOpenChange={onClose}>
       <DialogContent className="overflow-hidden p-0 text-black dark:bg-[#313338] dark:text-white">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-center text-2xl font-bold">

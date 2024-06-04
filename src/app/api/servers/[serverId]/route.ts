@@ -42,26 +42,16 @@ export async function DELETE(
       return new NextResponse('Server ID missing', { status: 400 });
     }
 
-    const server = await db.server.update({
+    const server = await db.server.delete({
       where: {
         id: params.serverId,
-        profileId: {
-          not: profile.id,
-        },
-        members: { some: { profileId: profile.id } },
-      },
-      data: {
-        members: {
-          deleteMany: {
-            profileId: profile.id,
-          },
-        },
+        profileId: profile.id,
       },
     });
 
     return NextResponse.json(server);
   } catch (error) {
-    console.log('[LEAVE_SERVER]', error);
+    console.log('[DELETE_SERVER]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
