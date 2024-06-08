@@ -10,30 +10,33 @@ import {
 import { useModal } from '@/hooks/use-modal-store';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import qs from 'query-string';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 
-const DeleteServerModal = () => {
+const DeleteChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
 
-  const { server } = data;
+  const { server, channel } = data;
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const isModalOpen = isOpen && type === 'deleteServer';
+  const isModalOpen = isOpen && type === 'deleteChannel';
 
   const handleDelete = async () => {
     try {
       setIsLoading(true);
       const url = qs.stringifyUrl({
-        url: `/api/servers/${params?.serverId}`,
+        url: `/api/channels/${channel?.id}`,
+        query: {
+          serverId: server?.id,
+        },
       });
       await axios.delete(url);
       router.refresh();
+      router.push(`/servers/${server?.id}`);
       onClose();
     } catch (err) {
       console.log(err);
@@ -51,12 +54,12 @@ const DeleteServerModal = () => {
       <DialogContent className="overflow-hidden bg-white p-0 text-black dark:bg-[#313338] dark:text-slate-200">
         <DialogHeader className="px-6 pt-8">
           <DialogTitle className="text-left text-xl font-bold text-muted-foreground dark:text-zinc-300">
-            Delete &apos;{server?.name}&apos;
+            Delete &apos;{channel?.name}&apos;
           </DialogTitle>
           <article className="text-start text-[#D2D5D8]">
             Are you sure you really want to delete
-            <span className="font-semibold"> {data.server?.name}</span> server?
-            Once deleted, it can not be restored.
+            <span className="font-semibold"> {data.channel?.name}</span>{' '}
+            channel? Once deleted, it can not be restored.
           </article>
         </DialogHeader>
         <DialogFooter className="flex flex-row justify-start gap-x-2 p-3 dark:bg-[#23262c]">
@@ -76,4 +79,4 @@ const DeleteServerModal = () => {
   );
 };
 
-export default DeleteServerModal;
+export default DeleteChannelModal;
