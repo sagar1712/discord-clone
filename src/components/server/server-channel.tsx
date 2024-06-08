@@ -1,5 +1,6 @@
 'use client';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { cn } from '@/lib/utils';
 import { Channel, ChannelType, MemberRole, Server } from '@prisma/client';
 import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react';
@@ -17,8 +18,9 @@ const iconMap = {
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video,
 };
-const ServerChannel = ({ channel, role }: ServerChannelProps) => {
+const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
   const params = useParams();
+  const { onOpen } = useModal();
 
   const Icon = iconMap[channel.type];
   return (
@@ -42,10 +44,16 @@ const ServerChannel = ({ channel, role }: ServerChannelProps) => {
       {channel.name !== 'general' && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit">
-            <Edit className="hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300" />
+            <Edit
+              onClick={() => onOpen('editChannel', { server, channel })}
+              className="hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
+            />
           </ActionTooltip>
           <ActionTooltip label="Delete">
-            <Trash className="hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300" />
+            <Trash
+              onClick={() => onOpen('deleteChannel', { server, channel })}
+              className="hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
+            />
           </ActionTooltip>
         </div>
       )}
