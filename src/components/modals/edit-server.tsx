@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input';
 import { useModal } from '@/hooks/use-modal-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
+import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -71,12 +72,12 @@ const EditServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="overflow-hidden p-0 text-black dark:bg-[#313338] dark:text-white">
+      <DialogContent className="overflow-hidden bg-white p-0 text-black dark:bg-[#313338] dark:text-slate-200">
         <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-center text-2xl font-bold">
+          <DialogTitle className="text-left text-xl font-bold">
             Customize your server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500 dark:text-white">
+          <DialogDescription className="text-left text-gray-500 dark:text-white">
             Give your server a personality with a name and an image. You can
             always change it later
           </DialogDescription>
@@ -105,13 +106,13 @@ const EditServerModal = () => {
               name="name"
               render={({ field }) => (
                 <FormItem className="m-6">
-                  <FormLabel className="text-sm font-bold uppercase text-zinc-500 dark:text-white">
+                  <FormLabel className="text-sm font-bold uppercase text-zinc-500 dark:text-gray-400/80">
                     Server Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-[#1E1F22] dark:text-white"
+                      className="bg-[#1e1f22] text-gray-200 focus-visible:ring-0 focus-visible:ring-offset-0"
                       placeholder="Enter server name"
                       {...field}
                     />
@@ -121,9 +122,12 @@ const EditServerModal = () => {
               )}
             />
             <div>
-              <DialogFooter className="bg-gray-100 px-6 py-4 dark:bg-[#2B2D31]">
-                <Button variant="primary" disabled={isLoading}>
-                  Save
+              <DialogFooter className="flex flex-row gap-x-2 bg-[#1e1f22] px-5 py-4">
+                <Button
+                  disabled={isLoading}
+                  className="w-32 bg-[#5865F2]/80 text-white hover:bg-[#5865F2]"
+                >
+                  {isLoading ? <Loader2 className="animate-spin" /> : 'Save'}
                 </Button>
               </DialogFooter>
             </div>
