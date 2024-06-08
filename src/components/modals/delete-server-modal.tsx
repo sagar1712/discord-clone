@@ -3,7 +3,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -49,15 +48,16 @@ const DeleteServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="gap-y-2  overflow-hidden bg-white  p-0 text-black text-primary dark:bg-[#313338] dark:text-zinc-300">
+      <DialogContent className="overflow-hidden bg-white p-0 text-black dark:bg-[#313338] dark:text-slate-200">
         <DialogHeader className="px-6 pt-8">
-          <DialogTitle className="text-start text-2xl font-bold text-muted-foreground dark:text-zinc-300">
+          <DialogTitle className="text-left text-xl font-bold text-muted-foreground dark:text-zinc-300">
             Delete &apos;{server?.name}&apos;
           </DialogTitle>
-          <DialogDescription className="text-start text-lg text-zinc-300 dark:text-zinc-500">
-            Are you sure you want to delete server? Once deleted, it can not be
-            restored
-          </DialogDescription>
+          <article className="px-6 text-start text-[#D2D5D8]">
+            Are you sure you really want to delete
+            <span className="font-semibold"> {data.server?.name}</span> server?
+            Once deleted, it can not be restored.
+          </article>
         </DialogHeader>
         <DialogFooter className="flex flex-row justify-start gap-x-2 p-3 dark:bg-[#23262c]">
           <Button variant="outline" className="w-24" onClick={handleClose}>
