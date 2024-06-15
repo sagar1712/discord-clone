@@ -21,7 +21,7 @@ export default async function handler(
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    if (!serverId || !channelId || !content || !messageId) {
+    if (!serverId || !channelId || !messageId) {
       return res
         .status(400)
         .json({ message: 'Server ID, ChannelId or Content missing' });
@@ -108,6 +108,11 @@ export default async function handler(
     if (req.method === 'PATCH') {
       if (!isOwner) {
         return res.status(403).json({ message: 'Forbidden' });
+      }
+      if (!content) {
+        return res
+          .status(400)
+          .json({ message: 'Server ID, ChannelId or Content missing' });
       }
       message = await db.message.update({
         where: {
