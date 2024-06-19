@@ -2,6 +2,7 @@
 
 import { useChatQuery } from '@/hooks/use-chat-query';
 import useChatScroll from '@/hooks/use-chat-scroll';
+import useChatSocket from '@/hooks/use-chat-socket';
 import { MessageWithMemberWithProfile } from '@/types';
 import { Member } from '@prisma/client';
 import { format } from 'date-fns';
@@ -35,6 +36,9 @@ const ChatMessages = ({
   type,
 }: ChatMessagesProps) => {
   const queryKey = `chat: ${chatId}`;
+  const addKey = `chat: ${chatId}:messages`;
+  const updateKey = `chat: ${chatId}:messages:update`;
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
       queryKey,
@@ -42,6 +46,8 @@ const ChatMessages = ({
       paramKey,
       paramValue,
     });
+
+  useChatSocket({ queryKey, addKey, updateKey });
 
   const chatRef = useRef<ElementRef<'div'>>(null);
   const bottomRef = useRef<ElementRef<'div'>>(null);
